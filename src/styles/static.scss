@@ -1,0 +1,56 @@
+.center-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.between-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clickable {
+  position: relative;
+  &:active {
+    &:before {
+      opacity: 1;
+    }
+  }
+  &:before {
+    content: "";
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left: 0;
+  }
+}
+
+.ex_click {
+  position: relative;
+  &:after {
+    content: "";
+    margin: -10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left: 0;
+  }
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  font-size: 0;
+}

@@ -1,0 +1,36 @@
+//该文件只能存放变量，函数，混合等工具，禁止将产生编译结果的静态样式放在此处
+
+$bg-color: #f7f7f7;
+
+$text-color-dark: #000000;
+$text-color-primary: #333333;
+$text-color-black: #414141;
+$text-color-gray: #999999;
+$text-color-white: #ffffff;
+$text-color-ashen: #878787;
+$text-color-price: #ff6400;
+$text-color-active: #5086ff;
+
+$font-size-huge: 42px;
+$font-size-great: 30px;
+$font-size-large: 28px;
+$font-size-big: 24px;
+$font-size-max: 22px;
+$font-size-normal: 20px;
+$font-size-default: 18px;
+$font-size-small: 16px;
+$font-size-mini: 15px;
+$font-size-micro: 14px;
+
+$border-radius-large: 8px;
+$border-radius-middle: 6px;
+$border-radius-small: 4px;
+$border-radius-mini: 2px;
+
+@mixin multi-line($line: 2, $line-height: inherit) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  line-height: $line-height;
+  overflow: hidden;
+}
