@@ -1,5 +1,6 @@
 import { computed, makeAutoObservable } from "mobx";
 import { Route } from "@/typing/global";
+import { uniq } from "@/utils";
 
 type RouteItem = Route.RouteItem;
 
@@ -40,6 +41,14 @@ export class Router {
         meta: { ...route.meta, parentName: parent?.name ?? "root" },
       });
     });
+
+    if (process.env.NODE_ENV === "development") {
+      const names = result.map((it) => it.name);
+
+      if (uniq(names).length !== names.length) {
+        console.error("请修改重复的路由name");
+      }
+    }
 
     return result;
   }

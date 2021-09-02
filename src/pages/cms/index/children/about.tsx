@@ -1,13 +1,22 @@
-import React, { FC } from "react";
+import React, {
+  FC,
+  InputHTMLAttributes,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import css from "styled-jsx/css";
 import { Button } from "antd";
-import { Link } from "react-router-dom";
 import * as ui from "@/services/ui";
 import { useStores } from "@/hooks";
 import { observer } from "mobx-react-lite";
-
+import classnames from "classnames";
+import FakeInput from "@/components/fun/FakeInput";
 const styles = css`
   .about {
+    input {
+      border: 1px solid #e5e5e5;
+    }
   }
 `;
 
@@ -17,6 +26,7 @@ interface Props {
 
 const About: FC<Props> = (props) => {
   const { app } = useStores();
+  const [value, setValue] = useState("");
 
   return (
     <div className="about">
@@ -42,8 +52,6 @@ const About: FC<Props> = (props) => {
         {app.count}
       </Button>
 
-      <Link to="/cms/home">home</Link>
-
       <div>
         <Button
           onClick={() =>
@@ -53,6 +61,21 @@ const About: FC<Props> = (props) => {
           loading
         </Button>
       </div>
+
+      <FakeInput
+        type="text"
+        value={value}
+        onInput={(e: any) => {
+          setValue(e.target.value);
+        }}
+      />
+      <input
+        type="text"
+        value={value}
+        onInput={(e: any) => {
+          setValue(e.target.value);
+        }}
+      />
 
       <style jsx>{styles}</style>
     </div>

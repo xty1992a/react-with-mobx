@@ -1,3 +1,11 @@
+import dayjs from "dayjs";
+
+export const fmt = (format: string) => (value: dayjs.ConfigType) =>
+  dayjs(value).isValid() ? dayjs(value).format(format) : value;
+
+export const fmtDate = fmt("YYYY-MM-DD");
+export const fmtTime = fmt("YYYY-MM-DD HH:mm:ss");
+
 export const sleep = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
 

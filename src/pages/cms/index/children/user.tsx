@@ -18,7 +18,7 @@ const User: FC<Props> = (props) => {
   return (
     <div className="user">
       <div className="avatar">
-        <img src={user.info?.avatar} alt="" />
+        <img src={user.info?.avatar} alt="avatar" />
       </div>
       <input
         type="file"

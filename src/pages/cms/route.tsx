@@ -39,17 +39,6 @@ const Routes: Route.RouteItem[] = [
       },
     ],
   },
-  {
-    path: "/home/:homeId",
-    exact: true,
-    name: "CmsHome",
-    title: "CmsHome",
-    component: lazyLoad(() => import("./home")),
-    meta: {
-      funcCodes: ["124"],
-      isMenu: false,
-    },
-  },
 ];
 
 export default Routes;

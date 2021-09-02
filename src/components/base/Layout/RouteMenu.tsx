@@ -73,7 +73,15 @@ const RouteMenu: FC<Props> = (props) => {
 
   useEffect(() => {
     const openKeys = item ? trace(item.name, router.platRoutes) : [];
-    setOpen(openKeys.slice(0, openKeys.length - 1));
+    const list = openKeys.slice(0, openKeys.length - 1);
+    setOpen(list);
+
+    console.log(
+      "openKeys",
+      router.platRoutes,
+      item ? item.name : "no match",
+      list
+    );
   }, [router, item, location.pathname]);
 
   return (
