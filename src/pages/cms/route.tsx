@@ -1,5 +1,6 @@
 import lazyLoad from "@/utils/lazy";
 import { Route } from "@/typing/global";
+import Icon from "@/components/base/Icon";
 
 const Routes: Route.RouteItem[] = [
   {
@@ -10,6 +11,8 @@ const Routes: Route.RouteItem[] = [
     component: lazyLoad(() => import("./index")),
     meta: {
       funcCodes: ["123"],
+      isMenu: true,
+      icon: <Icon icon="coupon" style={{ color: "red" }} />,
     },
     routes: [
       {
@@ -20,6 +23,18 @@ const Routes: Route.RouteItem[] = [
         component: lazyLoad(() => import("./index/children/user")),
         meta: {
           funcCodes: ["123"],
+          isMenu: true,
+        },
+      },
+      {
+        path: "/cms/about",
+        exact: true,
+        name: "CmsAbout",
+        title: "CmsAbout",
+        component: lazyLoad(() => import("./index/children/about")),
+        meta: {
+          funcCodes: ["123"],
+          isMenu: true,
         },
       },
     ],
@@ -32,6 +47,7 @@ const Routes: Route.RouteItem[] = [
     component: lazyLoad(() => import("./home")),
     meta: {
       funcCodes: ["124"],
+      isMenu: false,
     },
   },
 ];

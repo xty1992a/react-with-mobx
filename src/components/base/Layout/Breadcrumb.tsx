@@ -5,7 +5,7 @@ import { useLocation, useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 import { Route } from "@/typing/global";
 import { useStores } from "@/hooks";
-import { observer, useLocalObservable } from "mobx-react";
+import { observer } from "mobx-react-lite";
 type RouteItem = Route.RouteItem;
 
 const styles = css`
@@ -19,7 +19,6 @@ interface Props {
 
 function includeRoute(routes: RouteItem[], route: { path: string }) {
   for (const item of routes) {
-    console.log(item, route);
     if (item.path === route.path) return item;
     if (item.routes && includeRoute(item.routes, route)) return item;
   }
@@ -58,8 +57,6 @@ const Breadcrumb: FC<Props> = (props) => {
 
     return trace(topLevel, match);
   }, [router.rootRoute, match]);
-
-  console.log(JSON.stringify(matchTrace));
 
   return (
     <div className="breadcrumb">

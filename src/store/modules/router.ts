@@ -1,14 +1,25 @@
-import { makeAutoObservable, computed, flow } from "mobx";
+import { computed, makeAutoObservable } from "mobx";
 import { Route } from "@/typing/global";
 
 type RouteItem = Route.RouteItem;
 
-function walk(routes: RouteItem[], callback: (route: RouteItem) => void) {
+function walk(
+  routes: RouteItem[],
+  parent: RouteItem | null,
+  callback: (route: RouteItem, parent: RouteItem | null) => void
+) {
   routes?.forEach((it) => {
-    it.routes && walk(it.routes, callback);
-    callback(it);
+    it.routes && walk(it.routes, it, callback);
+    callback(it, parent);
   });
 }
+
+type Item = {
+  name: string;
+  title: string;
+  path: string;
+  children?: Item[];
+};
 
 export class Router {
   rootRoute: RouteItem | null = null;
@@ -23,8 +34,11 @@ export class Router {
   get platRoutes() {
     const result: RouteItem[] = [];
 
-    walk(this.routes, (route) => {
-      result.push(route);
+    walk(this.routes, null, (route, parent) => {
+      result.push({
+        ...route,
+        meta: { ...route.meta, parentName: parent?.name ?? "root" },
+      });
     });
 
     return result;

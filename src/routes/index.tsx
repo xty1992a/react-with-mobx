@@ -7,6 +7,8 @@ import Permission from "./permission";
 const rootRoutes = [
   {
     component: Permission,
+    name: "root",
+    title: "",
     routes,
   },
 ];

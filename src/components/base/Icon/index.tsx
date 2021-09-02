@@ -16,7 +16,7 @@ export default function Icon({ icon, className, ...props }: Props) {
             height: 1em;
             fill: currentColor;
             overflow: hidden;
-            vertical-align: top;
+            vertical-align: middle;
           }
         `}
       </style>

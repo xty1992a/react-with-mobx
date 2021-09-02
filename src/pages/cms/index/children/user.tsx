@@ -1,6 +1,7 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import css from "styled-jsx/css";
 import { useStores } from "@/hooks";
+import { observer } from "mobx-react-lite";
 
 const styles = css`
   .user {
@@ -36,4 +37,4 @@ const User: FC<Props> = (props) => {
   );
 };
 
-export default User;
+export default observer(User);

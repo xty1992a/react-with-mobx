@@ -3,7 +3,6 @@ import { Modal, message, Spin } from "antd";
 import { render, unmountComponentAtNode } from "react-dom";
 import { ModalFuncProps } from "antd/lib/modal/Modal";
 import classnames from "classnames";
-import css from "styled-jsx/css";
 
 class Toast {
   loadings: any[] = [];
@@ -116,10 +115,7 @@ export function loading(options?: LoadingOptions | string) {
   } else if (type === "object") {
     _options = options as LoadingOptions;
   }
-  console.log(options, _options);
-
   const { mountTo, text, mask, duration } = { ...dftOptions, ..._options };
-  console.log(text, mask);
   const div = document.createElement("div");
 
   mountTo.appendChild(div);

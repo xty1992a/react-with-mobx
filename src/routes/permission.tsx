@@ -1,9 +1,8 @@
 import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 import { matchPath } from "react-router";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useStores } from "@/hooks";
 import { Observer } from "mobx-react-lite";
-import { Spin } from "antd";
 import { Route } from "@/typing/global";
 import { shouldPass } from "@/utils";
 import Layout from "@/components/base/Layout";

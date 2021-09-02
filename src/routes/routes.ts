@@ -6,7 +6,7 @@ const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => {
 };
 
 // 获取各目录下的路由
-const req = require.context("../pages", true, /route\.ts$/);
+const req = require.context("../pages", true, /route\.tsx?$/);
 
 const routeModules = requireAll(req).reduce((pre: any[], item: any) => {
   const module = item.default;

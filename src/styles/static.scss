@@ -10,6 +10,12 @@
   justify-content: space-between;
 }
 
+.full-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .clickable {
   position: relative;
   &:active {

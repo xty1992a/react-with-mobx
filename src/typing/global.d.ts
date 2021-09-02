@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import { RouteConfig } from "react-router-config";
 
 declare module "react" {
@@ -15,6 +15,9 @@ declare namespace Route {
     meta: {
       funcCodes: string[];
       free?: boolean;
+      isMenu?: boolean;
+      icon?: ReactNode;
+      parentName?: string; // 自动处理,无需配置
       [p: string]: any;
     };
   }

@@ -7,11 +7,11 @@ import "./styles/globals.scss";
 
 const App: React.FC = () => {
   return (
-    <React.StrictMode>
+    <React.Fragment>
       <ConfigProvider locale={zhCN}>
         <RouterMap />
       </ConfigProvider>
-    </React.StrictMode>
+    </React.Fragment>
   );
 };
 
