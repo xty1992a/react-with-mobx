@@ -60,7 +60,6 @@ const Breadcrumb: FC<Props> = (props) => {
       return match.meta.breadcrumb;
     }
 
-    console.log("match", match);
     const topLevel = includeRoute(
       router.rootRoute?.routes as RouteItem[],
       match as any
@@ -69,8 +68,6 @@ const Breadcrumb: FC<Props> = (props) => {
 
     return trace(topLevel, { name: match.name });
   })();
-
-  console.log(matchTrace);
 
   return (
     <div className="breadcrumb">

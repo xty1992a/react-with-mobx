@@ -27,7 +27,6 @@ function sign(config: AxiosRequestConfig) {
     const ret = querySignWithTimestamp(
       stringify(transformObjectPropertyToJSON(query))
     );
-    console.log(ret);
     token = ret.signing;
     result.params = qs.parse(ret.query);
     result.url = path;

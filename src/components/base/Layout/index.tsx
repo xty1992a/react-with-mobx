@@ -8,7 +8,8 @@ import classnames from "classnames";
 const styles = css`
   .layout {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+    min-height: 500px;
     &_nest {
       .layout_side {
         width: 80px;
@@ -23,8 +24,10 @@ const styles = css`
       background-color: #fff;
       width: 200px;
       transition: 0.2s;
+      height: 100%;
     }
     &_main {
+      height: 100%;
       flex: 1;
     }
     &_header {
@@ -35,8 +38,9 @@ const styles = css`
       padding: 10px;
     }
     &_body {
-      padding-left: 10px;
-      padding-top: 10px;
+      padding: 10px;
+      height: calc(100% - 60px);
+      overflow: auto;
     }
   }
 `;

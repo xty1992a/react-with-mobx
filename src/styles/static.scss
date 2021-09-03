@@ -64,3 +64,21 @@ img {
     font-size: 16px;
   }
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #cccccc;
+
+  &:hover {
+  }
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}

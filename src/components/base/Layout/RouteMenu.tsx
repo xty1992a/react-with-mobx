@@ -24,6 +24,7 @@ const trace = (name: string, list: RouteItem[]) => {
   const result: string[] = [];
 
   while (_name !== "root") {
+    // eslint-disable-next-line no-loop-func
     const item = list.find((it) => it.name === _name);
     if (!item) break;
     _name = item.meta.parentName as string;
