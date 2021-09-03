@@ -8,7 +8,8 @@ const rootRoutes = [
   {
     component: Permission,
     name: "root",
-    title: "",
+    title: "root",
+    path: "/",
     routes,
   },
 ];

@@ -1,7 +1,7 @@
 import lazyLoad from "@/utils/lazy";
 import { Route } from "@/typing/global";
 
-const Routes: Route.RouteItem[] = [
+const Routes: Route.RouteItemNullish[] = [
   {
     path: "/base",
     exact: true,

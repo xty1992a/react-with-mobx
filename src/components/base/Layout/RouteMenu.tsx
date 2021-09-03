@@ -27,13 +27,13 @@ const trace = (name: string, list: RouteItem[]) => {
     const item = list.find((it) => it.name === _name);
     if (!item) break;
     _name = item.meta.parentName as string;
-    result.unshift(item.path as string);
+    result.unshift(item.name);
   }
 
   return result;
 };
 
-const getMenu = (item: RouteItem) => item.meta.isMenu;
+const isMenu = (item: RouteItem) => item.meta.isMenu;
 
 const icon = (icon?: ReactNode) => {
   if (!icon) return null;
@@ -42,21 +42,29 @@ const icon = (icon?: ReactNode) => {
 };
 
 const renderRoute = (route: RouteItem) => {
-  if (route.routes?.length) {
+  const routes = (route.routes || []).filter(isMenu);
+
+  if (routes.length > 1) {
     return (
       <SubMenu
         icon={icon(route.meta.icon)}
-        key={route.path as string}
+        key={route.name}
         title={route.title}
       >
-        {route.routes.filter(getMenu).map(renderRoute)}
+        {routes.filter(isMenu).map(renderRoute)}
       </SubMenu>
     );
   }
 
+  let displayRoute: RouteItem = route;
+
+  if (routes.length === 1) {
+    displayRoute = routes[0];
+  }
+
   return (
-    <Item icon={icon(route.meta.icon)} key={route.path as string}>
-      {route.title}
+    <Item icon={icon(displayRoute.meta.icon)} key={route.name}>
+      {displayRoute.title}
     </Item>
   );
 };
@@ -65,11 +73,25 @@ const RouteMenu: FC<Props> = (props) => {
   const { router } = useStores();
   const history = useHistory();
   const location = useLocation();
-  const tops = (router.rootRoute?.routes ?? []).filter(getMenu);
+  const tops = (router.rootRoute?.routes ?? []).filter(isMenu).map((it) => {
+    const menuRoutes = (it.routes || []).filter(isMenu);
+
+    if (menuRoutes.length === 1) {
+      return menuRoutes[0];
+    }
+    return it;
+  });
   const [open, setOpen] = useState<string[]>([]);
 
   const item = router.platRoutes.find((it) => matchPath(location.pathname, it));
-  const keys = item ? [item.path as string] : [];
+  const keys = item ? [item.name] : [];
+
+  const pushRoute = (name: string) => {
+    const route = router.platRoutes.find((it) => it.name === name);
+    if (!route) return;
+
+    history.push(route.path);
+  };
 
   useEffect(() => {
     const openKeys = item ? trace(item.name, router.platRoutes) : [];
@@ -94,9 +116,7 @@ const RouteMenu: FC<Props> = (props) => {
         onOpenChange={(e) => {
           setOpen(e as string[]);
         }}
-        onClick={(e) => {
-          history.push(e.key);
-        }}
+        onClick={(e) => pushRoute(e.key)}
       >
         {tops.map(renderRoute)}
       </Menu>

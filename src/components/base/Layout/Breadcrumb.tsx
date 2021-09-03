@@ -1,11 +1,12 @@
 import React, { FC, useMemo } from "react";
 import css from "styled-jsx/css";
 import { Breadcrumb as AntBread } from "antd";
-import { useLocation, useRouteMatch } from "react-router";
+import { useLocation, useRouteMatch, matchPath } from "react-router";
 import { Link } from "react-router-dom";
 import { Route } from "@/typing/global";
 import { useStores } from "@/hooks";
 import { observer } from "mobx-react-lite";
+type RouteItemNullish = Route.RouteItemNullish;
 type RouteItem = Route.RouteItem;
 
 const styles = css`
@@ -17,16 +18,16 @@ interface Props {
   [p: string]: any;
 }
 
-function includeRoute(routes: RouteItem[], route: { path: string }) {
+function includeRoute(routes: RouteItem[], route: { name: string }) {
   for (const item of routes) {
-    if (item.path === route.path) return item;
+    if (item.name === route.name) return item;
     if (item.routes && includeRoute(item.routes, route)) return item;
   }
   return null;
 }
 
-function trace(topLevel: RouteItem, target: { path: string }): RouteItem[] {
-  if (topLevel.path === target.path)
+function trace(topLevel: RouteItem, target: { name: string }): RouteItem[] {
+  if (topLevel.name === target.name)
     return [{ ...topLevel, routes: undefined }];
   if (topLevel.routes) {
     const children = topLevel.routes.reduce(
@@ -40,30 +41,52 @@ function trace(topLevel: RouteItem, target: { path: string }): RouteItem[] {
 
 const Breadcrumb: FC<Props> = (props) => {
   const location = useLocation();
-  const match = useRouteMatch(location.pathname);
   const { router } = useStores();
+  const match = router.platRoutes.find((route) =>
+    matchPath(location.pathname, route)
+  );
 
-  const matchTrace = useMemo(() => {
+  const matchTrace: RouteItemNullish[] = (() => {
     if (!router.rootRoute) {
       console.log("no route");
       return [];
     }
-    if (!match) return [];
+    if (!match) {
+      console.log("no match");
+      return [];
+    }
+
+    if (match.meta.breadcrumb) {
+      return match.meta.breadcrumb;
+    }
+
+    console.log("match", match);
     const topLevel = includeRoute(
       router.rootRoute?.routes as RouteItem[],
-      match
+      match as any
     );
     if (!topLevel) return [];
 
-    return trace(topLevel, match);
-  }, [router.rootRoute, match]);
+    return trace(topLevel, { name: match.name });
+  })();
+
+  console.log(matchTrace);
 
   return (
     <div className="breadcrumb">
       <AntBread>
-        {matchTrace.map((item) => (
-          <AntBread.Item key={item.path as string}>
-            <Link to={item.path as string}>{item.title}</Link>
+        {router.rootRoute && (
+          <AntBread.Item key="root">
+            <Link to={router.rootRoute.path}>{router.rootRoute.title}</Link>
+          </AntBread.Item>
+        )}
+        {matchTrace.map((item, index) => (
+          <AntBread.Item key={item.path}>
+            {index === matchTrace.length - 1 ? (
+              <span>{item.title}</span>
+            ) : (
+              <Link to={item.path}>{item.title}</Link>
+            )}
           </AntBread.Item>
         ))}
       </AntBread>

@@ -17,7 +17,7 @@ const HomeDetail: FC<Props> = (props) => {
   return (
     <div className="home-detail">
       <span>当前是</span>
-      <span>{match.params.homeId}</span>
+      <span>{match.params.houseId}</span>
 
       <style jsx>{styles}</style>
     </div>

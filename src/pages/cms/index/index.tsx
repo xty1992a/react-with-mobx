@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 import RouteTabs from "@/components/base/RouteTabs";
 import { Route } from "@/typing/global";
 import { matchPath, useLocation } from "react-router";
+import container from "@/components/base/RouteContainer";
 type RouteItem = Route.RouteItem;
 
 // region style
@@ -43,7 +44,7 @@ const Cms: FC<RouteConfigComponentProps> = (props) => {
   return (
     <div className="page-cms">
       <RouteTabs routes={routes} match={match} />
-      <section>{renderRoutes(route?.routes)}</section>
+      <section>{container({ redirect: "/cms/user" })(props)}</section>
       <style jsx>{style}</style>
     </div>
   );

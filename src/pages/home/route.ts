@@ -1,44 +1,19 @@
 import lazyLoad from "@/utils/lazy";
 import { Route } from "@/typing/global";
-import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 
-const Routes: Route.RouteItem[] = [
+const Routes: Route.RouteItemNullish[] = [
   {
-    path: "/home",
-    exact: false,
+    path: "/",
+    exact: true,
     name: "Home",
     title: "Home",
-    component: (props: RouteConfigComponentProps) => {
-      return renderRoutes(props.route?.routes);
-    },
+    component: lazyLoad(() => import("./index")),
     meta: {
       funcCodes: ["124"],
       isMenu: true,
+      icon: "member",
+      index: 100,
     },
-    routes: [
-      {
-        path: "/home/list",
-        exact: true,
-        name: "HomeList",
-        title: "HomeList",
-        component: lazyLoad(() => import("../home/children/list")),
-        meta: {
-          funcCodes: ["123"],
-          isMenu: true,
-        },
-      },
-      {
-        path: "/home/:homeId",
-        exact: true,
-        name: "HomeDetail",
-        title: "HomeDetail",
-        component: lazyLoad(() => import("../home/children/detail")),
-        meta: {
-          funcCodes: ["123"],
-          isMenu: false,
-        },
-      },
-    ],
   },
 ];
 

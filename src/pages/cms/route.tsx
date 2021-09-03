@@ -2,7 +2,7 @@ import lazyLoad from "@/utils/lazy";
 import { Route } from "@/typing/global";
 import Icon from "@/components/base/Icon";
 
-const Routes: Route.RouteItem[] = [
+const Routes: Route.RouteItemNullish[] = [
   {
     path: "/cms",
     exact: false,

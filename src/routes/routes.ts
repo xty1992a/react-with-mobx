@@ -15,7 +15,7 @@ const routeModules = requireAll(req).reduce((pre: any[], item: any) => {
 }, []);
 
 // 兜底路由放在最后,手动声明下
-const notFound: Route.RouteItem[] = [
+const notFound: Route.RouteItemNullish[] = [
   {
     path: "*",
     exact: false,
@@ -29,6 +29,32 @@ const notFound: Route.RouteItem[] = [
   },
 ];
 
+const dftMeta: Route.CompleteRouteMeta = {
+  funcCodes: [],
+  free: false,
+  isMenu: false,
+  icon: "",
+  index: 0,
+  parentName: "root",
+};
+
+function sort(route: { routes?: Route.RouteItem[] }) {
+  if (route.routes) {
+    route.routes.forEach((it) => {
+      sort(it);
+      it.meta = {
+        ...dftMeta,
+        ...it.meta,
+      };
+    });
+    route.routes.sort((a, b) => {
+      return (b.meta.index || 0) - (a.meta.index || 0);
+    });
+  }
+}
+
 const routes = [...routeModules, ...notFound];
+
+sort({ routes });
 
 export default routes;

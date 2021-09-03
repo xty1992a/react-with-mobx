@@ -22,7 +22,7 @@ const columns: ColumnsType<Item> = [
     key: "name",
     render: (text, record) => {
       return (
-        <Link to={`/home/${record.id}`}>
+        <Link to={`/house/list/${record.id}`}>
           <div>{text}</div>
         </Link>
       );

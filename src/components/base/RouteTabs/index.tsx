@@ -24,13 +24,13 @@ const RouteTabs: FC<Props> = (props) => {
     <div className="route-tabs">
       <Menu
         mode="horizontal"
-        selectedKeys={match ? [match.path as string] : []}
+        selectedKeys={match ? [match.path] : []}
         onClick={(e) => {
           history.push(e.key);
         }}
       >
         {routes.map((it) => (
-          <Menu.Item key={it.path as string}>{it.title}</Menu.Item>
+          <Menu.Item key={it.path}>{it.title}</Menu.Item>
         ))}
       </Menu>
 
